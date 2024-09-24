@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="create-likes-table2" author="your_name">
+        <createTable tableName="likes">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="uuid">
+
+            </column>
+            <column name="item_id" type="bigint">
+
+            </column>
+        </createTable>
+        <addForeignKeyConstraint constraintName="fk_likes_to_users"
+                                 baseTableName="likes" baseColumnNames="user_id"
+                                 referencedTableName="users" referencedColumnNames="id"/>
+        <addForeignKeyConstraint constraintName="fk_likes_to_items"
+                                 baseTableName="likes" baseColumnNames="item_id"
+                                 referencedTableName="item" referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

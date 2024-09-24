@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="create-cart_item-table" author="your_name">
+        <createTable tableName="cart_item">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="cart_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="item_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="item_count" type="integer" defaultValueNumeric="1">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint constraintName="fk_cart_item_to_cart"
+                                 baseTableName="cart_item" baseColumnNames="cart_id"
+                                 referencedTableName="cart" referencedColumnNames="id"/>
+        <addForeignKeyConstraint constraintName="fk_cart_item_to_items"
+                                 baseTableName="cart_item" baseColumnNames="item_id"
+                                 referencedTableName="item" referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

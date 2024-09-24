@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="create-users-table6" author="Fedor">
+        <createTable tableName="users">
+            <column name="user_id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar(15)">
+                <constraints nullable="true" checkConstraint="phone IS NULL OR LENGTH(phone) BETWEEN 10 AND 15"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Add unique constraint for email -->
+    <changeSet id="add-unique-constraint-email" author="your_name">
+        <addUniqueConstraint tableName="users" columnNames="email"/>
+    </changeSet>
+
+    <!-- Add foreign key constraint for addresses -->
+    <changeSet id="add-foreign-key-addresses" author="your_name">
+        <addForeignKeyConstraint baseTableName="users"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_users_address_id"
+                                 referencedTableName="address"
+                                 referencedColumnNames="address_id"
+                                 onDelete="CASCADE">
+            <column name="address_id" type="bigint"/>
+            <column name="user_id" type="uuid"/>
+        </addForeignKeyConstraint>
+    </changeSet>
+
+    <!-- Add foreign key constraint for orders -->
+    <changeSet id="add-foreign-key-orders" author="your_name">
+        <addForeignKeyConstraint baseTableName="users"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_orders_owner_id"
+                                 referencedTableName="orders"
+                                 referencedColumnNames="owner_id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+</databaseChangeLog>

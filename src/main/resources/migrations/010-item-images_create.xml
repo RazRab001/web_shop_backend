@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="create-item_images-table" author="your_name">
+        <createTable tableName="item_images">
+            <column name="item_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="images" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint constraintName="fk_item_images_to_items"
+                                 baseTableName="item_images" baseColumnNames="item_id"
+                                 referencedTableName="item" referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

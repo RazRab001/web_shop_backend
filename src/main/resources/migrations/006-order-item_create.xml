@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="create-order_item-table" author="your_name">
+        <createTable tableName="order_item">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="item_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="item_count" type="integer" defaultValueNumeric="1">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint constraintName="fk_order_item_to_orders"
+                                 baseTableName="order_item" baseColumnNames="order_id"
+                                 referencedTableName="orders" referencedColumnNames="id"/>
+        <addForeignKeyConstraint constraintName="fk_order_item_to_items"
+                                 baseTableName="order_item" baseColumnNames="item_id"
+                                 referencedTableName="item" referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

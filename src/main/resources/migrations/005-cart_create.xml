@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="create-cart-table" author="your_name">
+        <createTable tableName="cart">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="owner_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint constraintName="fk_cart_to_users"
+                                 baseTableName="cart" baseColumnNames="owner_id"
+                                 referencedTableName="users" referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
